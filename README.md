@@ -175,6 +175,9 @@ pawfam/
 
 ### Demo Video
 [](https://youtu.be/-pMe4pkvnpY)
+[![Watch the video](<img width="1806" height="925" alt="image" src="https://github.com/user-attachments/assets/36d3a25f-ced9-4529-b2ce-be1ba5995d26" />
+)](https://youtu.be/-pMe4pkvnpY)
+
 ## Modules & Components
 
 ### 1. **Authentication Module**
