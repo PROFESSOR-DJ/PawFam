@@ -27,6 +27,22 @@ const PetServicesPage = ({ user }) => {
   const [daycareCenters, setDaycareCenters] = useState([]);
   const [centersLoading, setCentersLoading] = useState(true);
 
+  // compute local today's date in YYYY-MM-DD so date inputs block past dates
+  const minDate = (() => {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  })();
+
+  // if start date changes and endDate is before it, clear endDate
+  useEffect(() => {
+    if (bookingData.startDate && bookingData.endDate && bookingData.endDate < bookingData.startDate) {
+      setBookingData(prev => ({ ...prev, endDate: '' }));
+    }
+  }, [bookingData.startDate]);
+
   useEffect(() => {
     fetchDaycareCenters();
   }, []);
@@ -561,7 +577,7 @@ const PetServicesPage = ({ user }) => {
                         onChange={(e) => setBookingData({ ...bookingData, startDate: e.target.value })}
                         required
                         disabled={loading}
-                        min={new Date().toISOString().split('T')[0]}
+                        min={minDate}
                       />
                     </div>
 
@@ -573,7 +589,7 @@ const PetServicesPage = ({ user }) => {
                         onChange={(e) => setBookingData({ ...bookingData, endDate: e.target.value })}
                         required
                         disabled={loading}
-                        min={bookingData.startDate || new Date().toISOString().split('T')[0]}
+                        min={bookingData.startDate || minDate}
                       />
                     </div>
                   </div>
