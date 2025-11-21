@@ -26,6 +26,15 @@ const AdoptionPage = ({ user }) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
+  // compute local today's date in YYYY-MM-DD (local time, not UTC)
+  const today = (() => {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  })();
+
   // Fetch user profile data on component mount
   useEffect(() => {
     if (user) {
@@ -555,6 +564,7 @@ const AdoptionPage = ({ user }) => {
                       disabled={loading}
                       className={errors.visitDate ? 'error' : ''}
                       style={errors.visitDate ? { borderColor: '#c00' } : undefined}
+                      min={today}
                     />
                   </div>
                   <div className="form-group">

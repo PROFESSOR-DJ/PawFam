@@ -41,7 +41,14 @@ const AccessoriesPage = ({ user }) => {
   const [sortBy, setSortBy] = useState('name');
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD for min date
+  // compute local today's date in YYYY-MM-DD (use local time, not UTC)
+  const today = (() => {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  })();
   const TIME_MIN = '17:00';
   const TIME_MAX = '19:00';
   
